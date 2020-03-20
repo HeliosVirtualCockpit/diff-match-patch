@@ -2200,6 +2200,7 @@ namespace DiffMatchPatch {
       if (textline.Length == 0) {
         return patches;
       }
+      textline = textline.Replace("\r", "");
       string[] text = textline.Split('\n');
       int textPointer = 0;
       Patch patch;
