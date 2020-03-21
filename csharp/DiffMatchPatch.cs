@@ -2248,13 +2248,12 @@ namespace DiffMatchPatch {
         textPointer++;
 
         while (textPointer < text.Length) {
-          try {
-            sign = text[textPointer][0];
-          } catch (IndexOutOfRangeException) {
-            // Blank line?  Whatever.
+          if (text[textPointer].Length < 1)
+          {
             textPointer++;
             continue;
           }
+          sign = text[textPointer][0];
           line = text[textPointer].Substring(1);
           line = line.Replace("+", "%2b");
           line = System.Net.WebUtility.UrlDecode(line);
