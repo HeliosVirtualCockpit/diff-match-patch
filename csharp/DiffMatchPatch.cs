@@ -1985,21 +1985,28 @@ namespace DiffMatchPatch {
               results[x] = false;
             } else {
               diff_cleanupSemanticLossless(diffs);
+              // index into the reference input; i.e. where we would be in the input if the input was exact
               int index1 = 0;
+              // offset from our location in text2 (the corresponding actual input) to the edited text
+              // due to changes we have already made
+              int offset = 0;
               foreach (Diff aDiff in aPatch.diffs) {
                 if (aDiff.operation != Operation.EQUAL) {
                   int index2 = diff_xIndex(diffs, index1);
                   if (aDiff.operation == Operation.INSERT) {
                     // Insertion
-                    text = text.Insert(start_loc + index2, aDiff.text);
+                    text = text.Insert(start_loc + index2 + offset, aDiff.text);
+                    offset += aDiff.text.Length;
                   } else if (aDiff.operation == Operation.DELETE) {
                     // Deletion
-                    text = text.Remove(start_loc + index2, diff_xIndex(diffs,
-                        index1 + aDiff.text.Length) - index2);
+                    int length2 = diff_xIndex(diffs, index1 + aDiff.text.Length) - index2;
+                    text = text.Remove(start_loc + index2 + offset, length2);
+                    offset -= length2;
                   }
                 }
-                if (aDiff.operation != Operation.DELETE) {
-                  index1 += aDiff.text.Length;
+                if (aDiff.operation != Operation.INSERT) {
+                    // we consumed some of our reference input
+                    index1 += aDiff.text.Length;
                 }
               }
             }
