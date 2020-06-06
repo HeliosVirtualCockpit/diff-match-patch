@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Google diff-match-patch")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("HeliosVirtualCockpit fork with fixes not present in main fork")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Google")]
+[assembly: AssemblyCompany("github.com/HeliosVirtualCockpit")]
 [assembly: AssemblyProduct("diff-match-patch")]
-[assembly: AssemblyCopyright("Copyright 2018 The diff-match-patch Authors")]
+[assembly: AssemblyCopyright("Copyright (c) 2018 The diff-match-patch Authors, 2020 Ammo Goettsch")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
