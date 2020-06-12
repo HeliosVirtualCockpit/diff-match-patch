@@ -23,6 +23,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
+#pragma warning disable IDE1006 // Naming Styles this is a fork of google repo so don't change style
+#pragma warning disable IDE0054 // Use compound assignment this is a fork of google repo so don't change style
+
+// ReSharper disable once CheckNamespace this is a fork of google repo so don't change it
 namespace DiffMatchPatch
 {
     internal static class CompatibilityExtensions
