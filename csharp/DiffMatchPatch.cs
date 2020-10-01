@@ -2224,15 +2224,16 @@ namespace DiffMatchPatch
          * @return Three element Object array, containing the new text, an array of
          *      bool values, and an array of status values
          */
-        public Object[] patch_apply(List<Patch> patches, string text)
+        public Object[] patch_apply(List<Patch> originalPatches, string text, out List<Patch> effectivePatches)
         {
-            if (patches.Count == 0)
+            if (originalPatches.Count == 0)
             {
+                effectivePatches = originalPatches;
                 return new Object[] { text, new bool[0], new PatchResult[0] };
             }
 
             // Deep copy the patches so that no changes are made to originals.
-            patches = patch_deepCopy(patches);
+            List<Patch> patches = patch_deepCopy(originalPatches);
 
             string nullPadding = this.patch_addPadding(patches);
             text = nullPadding + text + nullPadding;
@@ -2244,8 +2245,12 @@ namespace DiffMatchPatch
             // positions 10 and 20, but the first patch was found at 12, delta is 2
             // and the second patch has an effective expected position of 22.
             int delta = 0;
+
+            // return this so we have matching sets of patches and results
+            effectivePatches = patches;
             bool[] results = new bool[patches.Count];
             PatchResult[] resultCodes = new PatchResult[patches.Count];
+
             foreach (Patch aPatch in patches)
             {
                 int expected_loc = aPatch.start2 + delta;
